@@ -30,13 +30,14 @@ gulp.task('clean:html', function(cb) {
     cb();
 });
 
-gulp.task('copy:assets', function() {
+gulp.task('copy:assets',['clean:assets'], function() {
     gulp.src(['./styles/**/!(*.less)'])
         .pipe(gulp.dest('./dist/styles'));
 });
 
-gulp.task('clean:styles', function(cb) {
-    del.sync('./dist/styles');
+
+gulp.task('clean:assets', function(cb) {
+    del.sync('./dist/styles/!(style.css)');
     cb();
 });
 
@@ -46,17 +47,21 @@ gulp.task('copy:vendor', ['clean:vendors'], function() {
 });
 
 gulp.task('clean:vendors', function(cb) {
-
     del.sync('./dist/vendors');
     cb();
 });
 
-gulp.task('less', ['copy:assets','clean:styles'], function() {
+gulp.task('less', ['clean:styles'], function() {
     gulp.src('./styles/style.less')
         .pipe(less({
             concat: 'style.css'
         }))
         .pipe(gulp.dest('./dist/styles'))
+});
+
+gulp.task('clean:styles', function(cb) {
+    del.sync('./dist/styles/style.css');
+    cb();
 });
 
 gulp.task('clean', function(cb) {
@@ -69,9 +74,10 @@ gulp.task('default', ['less', 'copy:assets', 'concat', 'copy:html', 'copy:vendor
         server: {
             baseDir: "./dist",
         },
-        files: ["index.html", "style.css", "app.js"]
+        files: ["./dist/**/*.html", "./dist/**/*.css", "./dist/**/*.js"]
     });
+    watch(['./styles/**/!(*.less)'], function(){gulp.start('copy:assets')});
     watch(['./styles/**/*.less'], function(){gulp.start('less')});
     watch(['./scripts/**/*.js', './component/**/*.js'], function(){gulp.start('concat')});
-    watch(['./component/**/*.html'], function(){gulp.start('copy:html')});
+    watch(['./component/**/*.html','index.html'], function(){gulp.start('copy:html')});
 })

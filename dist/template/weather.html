@@ -1,2 +1,7 @@
-<div> il fait {{$ctrl.temp}}&deg; à {{$ctrl.city}}</div>
-<div ng-class="$ctrl.icon | weatherToClass">
+<div class="container" ng-class="{appear : !$ctrl.isLoad}">
+    <div class="city">{{$ctrl.city}}</div>
+    <div class="line">
+        <div class="icon" ng-class="$ctrl.icon | weatherToClass"></div>
+        <div class="temp">{{$ctrl.temp}}&deg;</div>
+    </div>
+</div>

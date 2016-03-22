@@ -154,6 +154,51 @@
   content: '\f108';
   color: #cccccc;
 }
+weather {
+  display: block;
+  position: relative;
+  float: left;
+  padding: 20px;
+}
+weather .container.appear .city {
+  animation: appear 2s forwards;
+}
+weather .container.appear .temp {
+  animation: appear 2s .5s forwards;
+}
+weather .container.appear .icon {
+  animation: appear 2s .2s forwards;
+}
+weather .container .line {
+  display: flex;
+  align-items: center;
+}
+weather .container .city {
+  opacity: 0;
+  font-size: 24px;
+  text-align: center;
+}
+weather .container .temp {
+  opacity: 0;
+  font-size: 45px;
+}
+weather .container .icon {
+  opacity: 0;
+  float: left;
+}
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform-origin: top;
+    transform: rotateX(180deg);
+  }
+  30% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    opacity: 1;
+  }
+}
 body {
   font-family: 'open_sans';
 }
