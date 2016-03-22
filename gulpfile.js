@@ -3,7 +3,7 @@ var less = require('gulp-less')
 var browserSync = require('browser-sync').create();
 var concat = require('gulp-concat');
 var flatten = require('gulp-flatten');
-var rimraf = require('rimraf');
+var del = require('del');
 
 gulp.task('concat', ['clean:concat'], function() {
     gulp.src(['./app.js', './component/**/*.js'])
@@ -12,7 +12,7 @@ gulp.task('concat', ['clean:concat'], function() {
 });
 
 gulp.task('clean:concat', function(cb) {
-    rimraf('./dist/app.js',cb)
+    del('./dist/app.js');
 });
 
 gulp.task('copy:html', ['clean:html'], function() {
@@ -24,8 +24,7 @@ gulp.task('copy:html', ['clean:html'], function() {
 });
 
 gulp.task('clean:html', function(cb) {
-    rimraf('./dist/template',cb)
-    rimraf('./dist/index.html',cb)
+    del(['./dist/template', './dist/index.html']);
 });
 
 gulp.task('copy:assets', function() {
@@ -34,7 +33,7 @@ gulp.task('copy:assets', function() {
 });
 
 gulp.task('clean:styles', function(cb) {
-    rimraf('./dist/styles',cb)
+    del('./dist/styles');
 });
 
 gulp.task('copy:vendor', ['clean:vendors'], function() {
@@ -43,10 +42,10 @@ gulp.task('copy:vendor', ['clean:vendors'], function() {
 });
 
 gulp.task('clean:vendors', function(cb) {
-    rimraf('./dist/vendors',cb)
+    del('./dist/vendors');
 });
 
-gulp.task('less', ['copy:assets',':styles'], function() {
+gulp.task('less', ['copy:assets', 'clean:styles'], function() {
     gulp.src('./styles/style.less')
         .pipe(less({
             concat: 'style.css'
@@ -55,7 +54,7 @@ gulp.task('less', ['copy:assets',':styles'], function() {
 });
 
 gulp.task('clean', function(cb) {
-    rimraf('./dist', cb);
+    del('./dist');
 })
 
 
