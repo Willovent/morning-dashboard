@@ -155,9 +155,7 @@
   color: #cccccc;
 }
 weather {
-  display: block;
   position: relative;
-  float: left;
   padding: 20px;
 }
 weather .container.appear .city {
@@ -199,6 +197,15 @@ weather .container .icon {
     opacity: 1;
   }
 }
+next-stop {
+  padding: 20px;
+}
 body {
   font-family: 'open_sans';
+}
+.component {
+  margin: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  display: block;
+  float: left;
 }
