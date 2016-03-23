@@ -13,7 +13,7 @@ angular.module('dashboard')
         controller: ['$http','$interval', function($http,$interval) {
             var that = this;
             that.isLoad = true;
-            let getMeteo = () => {
+            var getMeteo = function() {
                 $http.get(configWeather.weatherApiUrl, {
                     params: {
                         q: that.city,
@@ -29,7 +29,7 @@ angular.module('dashboard')
                 });
             };
             getMeteo();
-            $interval(() => getMeteo(),5000);
+            $interval(getMeteo,1000*60);
         }]
     });
 

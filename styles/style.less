@@ -1,15 +1,33 @@
 @import 'font.less';
 @import 'weather-icon.less';
-@import 'weather.less';
-@import 'next-stop.less';
 
 body{
     font-family: 'open_sans';
+    background: #fff;
 }
 
 .component{
     margin:10px;
-    box-shadow: 0 0 20px fade(#000,50);    
+    box-shadow: 0 0 2px fade(#000,50);    
+    background: #eee;
     display: block;
+    border-radius:2px;
     float: left;
+}
+
+
+
+@keyframes appear{
+    0%{
+        opacity: 0;
+        transform-origin:top;
+        transform: rotateX(180deg);
+    }
+    30%{
+        transform: rotateX(-30deg);
+    }
+     100%{
+        transform: rotateX(0deg);
+        opacity: 1;        
+     }
 }

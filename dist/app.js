@@ -16,21 +16,70 @@ angular.module('dashboard')
             ligne: '@',
             type: '@'
         },
-        templateUrl:'./template/nextStop.html',
-        controller: ['$http', function($http) {
+        templateUrl: './template/nextStop.html',
+        controller: ['$http','$interval', function($http,$interval) {
             var that = this;
             that.isLoading = true;
-            $http.get(configNextStop.apiPattern(that.type, that.ligne, that.station, that.direction)).success(function(data) {
-                that.type = data.response.informations.type;
-                that.station = data.response.informations.station.name;
-                that.time = []
-                for (var i in data.response.schedules) {
-                    that.time.push(data.response.schedules[i].message);
-                }
-                that.ligne = data.response.informations.line;
-            });
+            var updateHoraire = function(){
+                $http.get(configNextStop.apiPattern(that.type, that.ligne, that.station, that.direction)).success(function(data) {
+                    that.type = data.response.informations.type;
+                    that.station = data.response.informations.station.name;
+                    that.time = []
+                    for (var i in data.response.schedules) {
+                        that.time.push(data.response.schedules[i].message);
+                    }
+                    that.ligne = data.response.informations.line;
+                    that.isLoad = true;
+                });
+            };
+            updateHoraire();
+            $interval(updateHoraire,20*1000);
         }],
     });
+
+angular.module('dashboard').filter('schedulesToText', function() {
+    return function(input) {
+        var minutes = parseInt(input);
+        if (minutes) {
+            return `Prochain dans départ dans ${minutes} minutes`;
+        } else if (input === `A l'approche`) {
+            return `À l'approche !`;
+        } else if (input === `A l'arret`){
+            return `À l'arrêt !`;
+        } else {
+            return `Service terminé`;
+        }
+    }
+})
+
+angular.module('dashboard').filter('schedulesToclass', function() {
+    return function(input) {
+        var minutes = parseInt(input);
+
+        if (minutes && minutes < 7) {
+            return 'close';
+        } else if (!minutes) {
+            return 'error';
+        } else {
+            return '';
+        }
+    }
+})
+angular.module('dashboard').component('time', {
+    templateUrl : 'template/time.html',
+    restrict: 'E',
+    controller : ['$interval',function($interval){
+        var that = this;
+        var updateTime = function(){
+            now = new Date();
+            that.hours = now.getHours();
+            that.minutes = now.getMinutes();
+            that.secondes = ("0" + now.getSeconds()).slice(-2);
+        }
+        updateTime();
+        $interval(updateTime,1000);
+    }],
+});
 var configWeather = {
     weatherApiKey: 'f0d716b60dc56bf332a979358f824bec',
     weatherApiUrl: 'http://api.openweathermap.org/data/2.5/weather'
@@ -46,7 +95,7 @@ angular.module('dashboard')
         controller: ['$http','$interval', function($http,$interval) {
             var that = this;
             that.isLoad = true;
-            let getMeteo = () => {
+            var getMeteo = function() {
                 $http.get(configWeather.weatherApiUrl, {
                     params: {
                         q: that.city,
@@ -62,7 +111,7 @@ angular.module('dashboard')
                 });
             };
             getMeteo();
-            $interval(() => getMeteo(),5000);
+            $interval(getMeteo,1000*60);
         }]
     });
 

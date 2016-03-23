@@ -1,0 +1,54 @@
+next-stop{
+    padding:20px;
+    position: relative;
+    width:300px;
+    height:120px;
+    
+    .container{
+        display: flex;
+        height: 100%;
+        align-items: stretch;
+        .line-container{
+            display: flex;
+            align-items: center;       
+            float:left;    
+        
+            .line{
+                @lineSize: 100px;
+                font-size:26px;
+                border-radius:50%;
+                width:@lineSize;
+                height: @lineSize;
+                background: azure;
+                display:flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        .horaires{
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            float:left;
+            margin: 0;
+            
+            div{
+                opacity: 0;
+            }
+            
+            &.is-load{
+                div{
+                    animation:appear 1s forwards;
+                    .defere-animation(5);
+                }
+            }
+        }
+    }
+}
+.defere-animation(@n, @i: 1) when (@i =< @n) {
+  &:nth-child(@{i}) {
+    animation-delay: (@i * 0.2s);
+  }
+  .defere-animation(@n, (@i + 1));
+}

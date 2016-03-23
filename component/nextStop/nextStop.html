@@ -1,6 +1,9 @@
-<div>
-    <span>Ligne {{$ctrl.ligne}} : </span>
-    <ul>
-        <li ng-repeat="time in $ctrl.time track by $index">Prochain {{$ctrl.type}} à {{$ctrl.station}} dans {{time}}</li>
-    </ul>
+<span class="station">{{$ctrl.station}}</span>
+<div class="container">
+    <div class="line-container">
+        <div class="line">{{$ctrl.ligne}}</div>
+    </div>
+    <div class="horaires" ng-class="{'is-load' : $ctrl.isLoad}">
+        <div ng-repeat="time in $ctrl.time track by $index">{{time | schedulesToText}}</div>
+    </div>
 </div>

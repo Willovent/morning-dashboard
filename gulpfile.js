@@ -4,6 +4,7 @@ var browserSync = require('browser-sync').create();
 var concat = require('gulp-concat');
 var flatten = require('gulp-flatten');
 var del = require('del');
+var autoprefixer = require('gulp-autoprefixer');
 var watch = require('gulp-watch');
 
 gulp.task('concat', ['clean:concat'], function() {
@@ -52,10 +53,10 @@ gulp.task('clean:vendors', function(cb) {
 });
 
 gulp.task('less', ['clean:styles'], function() {
-    gulp.src('./styles/style.less')
-        .pipe(less({
-            concat: 'style.css'
-        }))
+    gulp.src(['./styles/style.less','./component/**/*.less'])
+        .pipe(less())
+        .pipe(autoprefixer())
+        .pipe(concat('style.css'))
         .pipe(gulp.dest('./dist/styles'))
 });
 

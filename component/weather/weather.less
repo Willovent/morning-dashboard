@@ -1,6 +1,8 @@
 weather{
     position:relative;
     padding:20px;
+    height:120px;
+    width:200px;
     
     .container{
         
@@ -18,7 +20,8 @@ weather{
         
         .line{
             display: flex;   
-            align-items: center;                 
+            align-items: center;      
+            justify-content: center;           
         }
         
         .city{
@@ -37,19 +40,4 @@ weather{
             float:left;
         }
     }
-}
-
-
-@keyframes appear{
-    0%{
-        opacity: 0;
-        transform-origin:top;
-        transform: rotateX(180deg);
-    }
-    30%{
-        transform: rotateX(0deg);
-    }
-     100%{
-        opacity: 1;        
-     }
 }
