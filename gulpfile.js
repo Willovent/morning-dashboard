@@ -75,10 +75,10 @@ gulp.task('default', ['less', 'copy:assets', 'concat', 'copy:html', 'copy:vendor
         server: {
             baseDir: "./dist",
         },
-        files: ["./dist/**/*.html", "./dist/**/*.css", "./dist/**/*.js"]
+        files: ["./dist/*","./dist/**/*"]
     });
     watch(['./styles/**/!(*.less)'], function(){gulp.start('copy:assets')});
-    watch(['./styles/**/*.less'], function(){gulp.start('less')});
+    watch(['./styles/style.less','./component/**/*.less'], function(){gulp.start('less')});
     watch(['./scripts/**/*.js', './component/**/*.js'], function(){gulp.start('concat')});
     watch(['./component/**/*.html','index.html'], function(){gulp.start('copy:html')});
 })
