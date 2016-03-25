@@ -6,14 +6,17 @@ var flatten = require('gulp-flatten');
 var del = require('del');
 var autoprefixer = require('gulp-autoprefixer');
 var watch = require('gulp-watch');
+var ts = require('gulp-typescript');
 
-gulp.task('concat', ['clean:concat'], function() {
-    gulp.src(['./app.js', './component/**/*.js'])
-        .pipe(concat('app.js'))
+gulp.task('build:scripts', ['clean:concat'], function() {
+    gulp.src(['./typings/main.d.ts','./app.ts', './component/**/*.ts'])
+        .pipe(ts({
+            concat:true
+        }))
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('clean:concat', function(cb) {
+gulp.task('clean:scripts', function(cb) {
     del.sync('./dist/app.js');
     cb();
 });
