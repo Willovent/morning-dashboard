@@ -1,6 +1,6 @@
 module Dashboard {
 
-    var configNextStop = {
+    let configNextStop = {
         apiPattern: function(type, ligne, station, direction) {
             type = type.toLowerCase();
             station = station.toLowerCase().replace(/\s/g, '+');
@@ -9,16 +9,16 @@ module Dashboard {
         }
     }
 
-    angular.module('dashboard')
-        .component('nextStop', {
-            bindings: {
-                station: '@',
-                direction: '@',
-                ligne: '@',
-                type: '@'
-            },
-            templateUrl: './template/nextStop.html',
-            controller: ['$http', '$interval', function($http, $interval) {
+class NextStopComponent implements ng.IComponentOptions{    
+    
+            bindings = {
+                'station': '@',
+                'direction': '@',
+                'ligne': '@',
+                'type': '@'
+            };
+            templateUrl = './template/nextStop.html';
+            controller= ['$http', '$interval', function($http, $interval) {
                 var that = this;
                 that.isLoading = true;
                 var updateHoraire = function() {
@@ -35,8 +35,12 @@ module Dashboard {
                 };
                 updateHoraire();
                 $interval(updateHoraire, 20 * 1000);
-            }],
-        });
+            }];
+        }
+}
+
+    angular.module('dashboard')
+        .component('nextStop', );
 
     angular.module('dashboard').filter('schedulesToText', function() {
         return function(input) {
