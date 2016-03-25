@@ -42,7 +42,8 @@ angular.module('dashboard').filter('schedulesToText', function() {
         var minutes = parseInt(input);
         if (minutes) {
             return `Prochain dans départ dans ${minutes} minutes`;
-        } else if (input === `A l'approche` || input === '0 m') {
+
+        } else if (input === `A l'approche` || input === '0 mn') {
             return `À l'approche !`;
         } else if (input === `A l'arret`){
             return `À l'arrêt !`;
