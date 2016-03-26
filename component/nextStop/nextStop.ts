@@ -8,39 +8,46 @@ module Dashboard {
             return `http://api-ratp.pierre-grimaud.fr/v2/${type}/${ligne}/stations/${station}?destination=${direction}`;
         }
     }
+    class NextStopController {
+        isLoad: boolean;
+        type: string;
+        ligne: string;
+        station: string;
+        direction: string;
+        time: string[];
 
-class NextStopComponent implements ng.IComponentOptions{    
-    
-            bindings = {
-                'station': '@',
-                'direction': '@',
-                'ligne': '@',
-                'type': '@'
+        constructor($http: ng.IHttpService, $interval: ng.IIntervalService) {
+            let updateHoraire = () => {
+                $http.get<any>(configNextStop.apiPattern(this.type, this.ligne, this.station, this.direction)).success((data) => {
+                    this.type = data.response.informations.type;
+                    this.station = data.response.informations.station.name;
+                    this.time = []
+                    for (let schedule of data.response.schedules) {
+                        this.time.push(schedule.message);
+                    }
+                    this.ligne = data.response.informations.line;
+                    this.isLoad = true;
+                });
             };
-            templateUrl = './template/nextStop.html';
-            controller= ['$http', '$interval', function($http, $interval) {
-                var that = this;
-                that.isLoading = true;
-                var updateHoraire = function() {
-                    $http.get(configNextStop.apiPattern(that.type, that.ligne, that.station, that.direction)).success(function(data) {
-                        that.type = data.response.informations.type;
-                        that.station = data.response.informations.station.name;
-                        that.time = []
-                        for (var i in data.response.schedules) {
-                            that.time.push(data.response.schedules[i].message);
-                        }
-                        that.ligne = data.response.informations.line;
-                        that.isLoad = true;
-                    });
-                };
-                updateHoraire();
-                $interval(updateHoraire, 20 * 1000);
-            }];
+            updateHoraire();
+            $interval(updateHoraire, 20 * 1000);
         }
-}
+    }
 
-    angular.module('dashboard')
-        .component('nextStop', );
+    class NextStopComponent implements ng.IComponentOptions {
+
+        bindings: { [binding: string]: string } = {
+            station: '@',
+            direction: '@',
+            ligne: '@',
+            type: '@'
+        };
+
+        templateUrl = './template/nextStop.html';
+        controller = ['$http', '$interval', NextStopController];
+    }
+
+    angular.module('dashboard').component('nextStop', new NextStopComponent());
 
     angular.module('dashboard').filter('schedulesToText', function() {
         return function(input) {
@@ -69,5 +76,5 @@ class NextStopComponent implements ng.IComponentOptions{
                 return '';
             }
         }
-    })
+    });
 }

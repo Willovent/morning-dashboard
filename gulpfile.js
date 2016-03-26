@@ -8,10 +8,10 @@ var autoprefixer = require('gulp-autoprefixer');
 var watch = require('gulp-watch');
 var ts = require('gulp-typescript');
 
-gulp.task('build:scripts', ['clean:concat'], function() {
+gulp.task('build:scripts', ['clean:scripts'], function() {
     gulp.src(['./typings/main.d.ts','./app.ts', './component/**/*.ts'])
         .pipe(ts({
-            concat:true
+           out: 'app.js'
         }))
         .pipe(gulp.dest('./dist'));
 });
@@ -73,7 +73,7 @@ gulp.task('clean', function(cb) {
     cb();
 });
 
-gulp.task('default', ['less', 'copy:assets', 'concat', 'copy:html', 'copy:vendor'], function() {
+gulp.task('default', ['less', 'copy:assets', 'build:scripts', 'copy:html', 'copy:vendor'], function() {
      browserSync.init({
         server: {
             baseDir: "./dist",
@@ -82,6 +82,6 @@ gulp.task('default', ['less', 'copy:assets', 'concat', 'copy:html', 'copy:vendor
     });
     watch(['./styles/**/!(*.less)'], function(){gulp.start('copy:assets')});
     watch(['./styles/style.less','./component/**/*.less'], function(){gulp.start('less')});
-    watch(['./scripts/**/*.js', './component/**/*.js'], function(){gulp.start('concat')});
+    watch(['./scripts/**/*.ts', './component/**/*.ts'], function(){gulp.start('build:scripts')});
     watch(['./component/**/*.html','index.html'], function(){gulp.start('copy:html')});
 })
