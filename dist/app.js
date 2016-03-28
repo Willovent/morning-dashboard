@@ -69,8 +69,10 @@ var Dashboard;
                     localStorage['refreshToken'] = _this.refreshToken;
                     _this.$timeout(3599 * 1000).then(function () { return _this.token = ""; });
                     _this.getMeetings();
-                }).error(function () {
-                    _this.getCode();
+                }).catch(function (error) {
+                    if (error.statusCode == 400) {
+                        _this.getCode();
+                    }
                 });
             }
         };

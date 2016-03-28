@@ -73,8 +73,10 @@ module Dashboard {
                     localStorage['refreshToken'] = this.refreshToken;
                     this.$timeout(3599 * 1000).then(() => this.token = "");
                     this.getMeetings();
-                }).error(() => {
-                    this.getCode();
+                }).catch((error) => {
+                    if(error.statusCode == 400){
+                        this.getCode();
+                    }
                 });
             }
         }
