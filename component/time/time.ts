@@ -7,7 +7,7 @@ module Dashboard {
                 this.now = new Date();
             };
             updateTime();
-            $interval(updateTime, 1000);
+            $interval(updateTime, 10000);
         }
     }
 
@@ -21,8 +21,8 @@ module Dashboard {
         let toReadableTime = (time: number) => ("0" + time).slice(-2);
         let hours = toReadableTime(input.getHours());
         let minutes = toReadableTime(input.getMinutes());
-        let secondes = toReadableTime(input.getSeconds())
-        return `${hours}:${minutes}:${secondes}`;
+        // let secondes = toReadableTime(input.getSeconds());
+        return `${hours}:${minutes}`;
     });
 
     angular.module('dashboard').component('time', new TimeComponent());

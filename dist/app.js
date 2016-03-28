@@ -35,7 +35,7 @@ var Dashboard;
                 var today = new Date();
                 today.setHours(0, 0, 0, 0);
                 var tonight = new Date(today.toString());
-                tonight.setDate(tonight.getDate() + 10);
+                tonight.setDate(tonight.getDate() + 1);
                 this.$http.get("https://outlook.office.com/api/v2.0/me/calendarview?startDateTime=" + today.toISOString() + "&endDateTime=" + tonight.toISOString() + "&$select=IsAllDay,Start,End,Subject,Location&$orderby=Start/DateTime", {
                     headers: {
                         Authorization: 'Bearer ' + this.token
@@ -194,7 +194,7 @@ var Dashboard;
                 _this.now = new Date();
             };
             updateTime();
-            $interval(updateTime, 1000);
+            $interval(updateTime, 10000);
         }
         return TimeController;
     }());
@@ -210,8 +210,8 @@ var Dashboard;
         var toReadableTime = function (time) { return ("0" + time).slice(-2); };
         var hours = toReadableTime(input.getHours());
         var minutes = toReadableTime(input.getMinutes());
-        var secondes = toReadableTime(input.getSeconds());
-        return hours + ":" + minutes + ":" + secondes;
+        // let secondes = toReadableTime(input.getSeconds());
+        return hours + ":" + minutes;
     }; });
     angular.module('dashboard').component('time', new TimeComponent());
 })(Dashboard || (Dashboard = {}));

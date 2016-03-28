@@ -40,7 +40,7 @@ module Dashboard {
                 var today = new Date();
                 today.setHours(0, 0, 0, 0);
                 var tonight = new Date(today.toString());
-                tonight.setDate(tonight.getDate() + 10);
+                tonight.setDate(tonight.getDate() + 1);
                 this.$http.get<any>(`https://outlook.office.com/api/v2.0/me/calendarview?startDateTime=${today.toISOString()}&endDateTime=${tonight.toISOString()}&$select=IsAllDay,Start,End,Subject,Location&$orderby=Start/DateTime`, {
                     headers: {
                         Authorization: 'Bearer ' + this.token
