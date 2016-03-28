@@ -25,7 +25,7 @@ module Dashboard {
                     this.city = data.name;
                     this.isLoad = true;
 
-                });
+                }).error(getMeteo);
             };
             getMeteo();
             $interval(getMeteo, 1000 * 60);
@@ -57,6 +57,20 @@ module Dashboard {
                 case '02': return 'icon-cloud';
                 case '04': return 'icon-cloud';
                 case '03': return 'icon-cloud';
+                default:
+                    return '';
+            }
+        };
+    });
+    
+    angular.module("dashboard").filter("weatherToCloudBase", function() {
+        return function(input) {
+            switch (input) {
+                case '11': return 'basethundercloud';
+                case '09': return 'basecloud';
+                case '10': return 'basecloud';
+                case '09': return 'basecloud';
+                case '13': return 'basecloud';
                 default:
                     return '';
             }

@@ -1,8 +1,5 @@
-<span class="station">{{$ctrl.station}}</span>
+<span class="station">{{$ctrl.type}} {{$ctrl.ligne}} - {{$ctrl.station}}</span>
 <div class="container">
-    <div class="line-container">
-        <div class="line">{{$ctrl.ligne}}</div>
-    </div>
     <div class="horaires" ng-class="{'is-load' : $ctrl.isLoad}">
         <div ng-repeat="time in $ctrl.time track by $index">{{time | schedulesToText}}</div>
     </div>

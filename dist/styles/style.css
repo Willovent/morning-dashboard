@@ -19,7 +19,9 @@
   font-style: normal;
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
-  font-size: 6em;
+  font-size: 94px;
+  width: 150px;
+  height: 94px;
 }
 @media only screen and (min-width: 479px) and (max-width: 678px) {
   [class^="icon-"],
@@ -34,137 +36,199 @@
 /* -----BaseCloud----- */
 .basecloud:before {
   font-family: 'iconvault';
-  font-size: 6em;
   content: '\f105';
+  position: absolute;
   color: #cccccc;
 }
 /* -----windyraincloud----- */
 .windyraincloud:before {
   font-family: 'iconvault';
-  font-size: 6em;
   content: '\f111';
+  position: absolute;
   color: #cccccc;
 }
 /* -----Windysnowcloud----- */
 .windysnowcloud:before {
   font-family: 'iconvault';
-  font-size: 6em;
   content: '\f109';
+  position: absolute;
   color: #cccccc;
 }
 /* -----Basethundercloud----- */
 .basethundercloud:before {
   font-family: 'iconvault';
-  font-size: 6em;
   content: '\f105';
+  position: absolute;
   color: #000;
 }
 /* -----Thunder----- */
 .icon-thunder::before {
   content: "\f114";
+  position: absolute;
   color: #ffa500;
 }
 /* -----Sunny----- */
 .icon-sunny::after {
   content: "\f101";
   color: #ffa500;
+  position: absolute;
 }
 /* -----Drizzle----- */
 .icon-drizzle::before {
   content: "\f10a";
   color: #82b2e4;
+  position: absolute;
 }
 /* -----Hail----- */
 .icon-hail::before {
   content: "\f10f";
+  position: absolute;
   color: #cccccc;
 }
 /* -----Showers----- */
 .icon-showers::before {
   content: "\f104";
+  position: absolute;
   color: #82b2e4;
 }
 /* -----Rainy----- */
 .icon-rainy::before {
   content: "\f107";
+  position: absolute;
   color: #4681c3;
 }
 /* -----Snowy----- */
 .icon-snowy::before {
   content: "\f10b";
+  position: absolute;
   color: #acd3f3;
 }
 /* -----Frosty----- */
 .icon-frosty::before {
   content: "\f102";
+  position: absolute;
   color: #85d8f7;
 }
 /* -----Windy----- */
 .icon-windy::before {
   content: "\f115";
+  position: absolute;
   color: #cccccc;
 }
 /* -----WindyRain----- */
 .icon-windyrain::before {
   content: "\f10e";
+  position: absolute;
   color: #acd3f3;
 }
 /* -----WindySnow----- */
 .icon-windysnow::before {
   content: "\f103";
+  position: absolute;
   color: #acd3f3;
 }
 /* -----Sleet----- */
 .icon-sleet::before {
   content: "\f10c";
+  position: absolute;
   color: #acd3f3;
 }
 /* -----Moon----- */
 .icon-moon::after {
   content: "\f10d";
   color: #ffa500;
+  position: absolute;
 }
 /* -----Night----- */
 .icon-night::after {
   content: "\f100";
+  position: absolute;
   color: #ffa500;
 }
 /* -----Sun----- */
 .icon-sun::after {
   content: "\f113";
   color: #ffa500;
+  position: absolute;
 }
 /* -----Cloud----- */
 .icon-cloud::after {
   content: "\f106";
   color: #cccccc;
+  position: absolute;
 }
 /* -----Sunrise----- */
 .icon-sunrise:before {
   content: '\f112';
   color: #ffa500;
+  position: absolute;
 }
 /* -----Sunset----- */
 .icon-sunset:before {
   content: '\f110';
   color: #f96f23;
+  position: absolute;
 }
 /* -----Mist----- */
 .icon-mist:before {
   content: '\f108';
   color: #cccccc;
+  position: absolute;
 }
 body {
   font-family: 'open_sans';
-  background: #fff;
+}
+.clear:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.background-holder {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+}
+.background-holder:before {
+  content: '';
+  display: block;
+  padding: 40px;
+  position: absolute;
+  -webkit-filter: blur(20px);
+          filter: blur(20px);
+  background: #492754;
+  background-image: url('assets/bg.jpg');
+  background-size: auto 110%;
+  top: -30px;
+  left: -30px;
+  width: 100vw;
+  height: 100vh;
 }
 .component {
   margin: 10px;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-  background: #eee;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  color: #eee;
   display: block;
   border-radius: 2px;
+}
+.component:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.left-col {
   float: left;
+}
+.right-col {
+  float: right;
+}
+.center-col {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
 }
 @-webkit-keyframes appear {
   0% {
@@ -203,72 +267,100 @@ body {
   }
 }
 
-next-stop {
-  padding: 20px;
+meetings {
   position: relative;
-  width: 500px;
-  height: 120px;
-}
-next-stop .container {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  height: 100%;
   -webkit-box-align: stretch;
   -webkit-align-items: stretch;
       -ms-flex-align: stretch;
+              -ms-grid-row-align: stretch;
           align-items: stretch;
 }
-next-stop .container .line-container {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+meetings .meetings {
   float: left;
+  margin: 0;
 }
-next-stop .container .line-container .line {
-  font-size: 26px;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  background: azure;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+meetings .meetings div {
+  padding: 10px 0;
+  border-bottom: 1px solid;
+  opacity: 0;
+  margin: 0 -5px;
+  padding: 10px 5px;
+}
+meetings .meetings div:last-child {
+  border: none;
+}
+meetings .meetings.is-load div {
+  -webkit-animation: appear 1s forwards;
+          animation: appear 1s forwards;
+}
+meetings .meetings.is-load div:nth-child(1) {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+}
+meetings .meetings.is-load div:nth-child(2) {
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
+}
+meetings .meetings.is-load div:nth-child(3) {
+  -webkit-animation-delay: 0.6s;
+          animation-delay: 0.6s;
+}
+meetings .meetings.is-load div:nth-child(4) {
+  -webkit-animation-delay: 0.8s;
+          animation-delay: 0.8s;
+}
+meetings .meetings.is-load div:nth-child(5) {
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
+}
+meetings .meetings.is-load div:nth-child(6) {
+  -webkit-animation-delay: 1.2s;
+          animation-delay: 1.2s;
+}
+meetings .meetings.is-load div:nth-child(7) {
+  -webkit-animation-delay: 1.4s;
+          animation-delay: 1.4s;
+}
+meetings .meetings.is-load div:nth-child(8) {
+  -webkit-animation-delay: 1.6s;
+          animation-delay: 1.6s;
+}
+meetings .meetings.is-load div:nth-child(9) {
+  -webkit-animation-delay: 1.8s;
+          animation-delay: 1.8s;
+}
+meetings .meetings.is-load div:nth-child(10) {
+  -webkit-animation-delay: 2s;
+          animation-delay: 2s;
+}
+
+next-stop {
+  padding: 20px;
+  position: relative;
+}
+next-stop .station {
+  font-weight: bold;
+  font-size: 17px;
+  text-transform: capitalize;
+}
+next-stop .container {
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+              -ms-grid-row-align: stretch;
+          align-items: stretch;
 }
 next-stop .container .horaires {
-  padding: 0 20px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-justify-content: space-around;
-      -ms-flex-pack: distribute;
-          justify-content: space-around;
   float: left;
   margin: 0;
 }
 next-stop .container .horaires div {
+  padding: 10px 0;
+  border-bottom: 1px solid;
   opacity: 0;
+}
+next-stop .container .horaires div:last-child {
+  border: none;
 }
 next-stop .container .horaires.is-load div {
   -webkit-animation: appear 1s forwards;
@@ -299,7 +391,7 @@ weather {
   position: relative;
   padding: 20px;
   height: 120px;
-  width: 200px;
+  width: 240px;
 }
 weather .container.appear .city {
   -webkit-animation: appear 2s forwards;
@@ -339,4 +431,13 @@ weather .container .temp {
 weather .container .icon {
   opacity: 0;
   float: left;
+}
+
+time {
+  position: relative;
+  padding: 20px;
+}
+time span {
+  font-size: 70px;
+  float: right;
 }

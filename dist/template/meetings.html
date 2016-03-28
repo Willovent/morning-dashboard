@@ -1,0 +1,10 @@
+<h2>Meetings de la journée</h2>
+<div class="container">
+    <div class="meetings" ng-class="{'is-load' : $ctrl.isLoad}">
+        <div ng-repeat="meeting in $ctrl.meetings track by $index">
+            <span ng-if="!meeting.isAllDay">{{meeting.from | toHours}} - {{meeting.to | toHours}} : </span>{{meeting.description}}
+            <br>
+            <span><i>{{meeting.location}}</i></span>
+        </div>
+    </div>
+</div>

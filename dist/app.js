@@ -4,6 +4,107 @@ var Dashboard;
 })(Dashboard || (Dashboard = {}));
 var Dashboard;
 (function (Dashboard) {
+    var meetingsConfig = {
+        clientId: 'eeaba47d-44e5-4529-9b5d-c19ec219a220',
+        clientSecret: 'Lgyd79HEdCpdhsR89qXaZNh',
+        scope: 'https://outlook.office.com/calendars.read',
+        endpointOauth: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize'
+    };
+    console.log();
+    var MeetingController = (function () {
+        function MeetingController($http, $q, $interval, $timeout) {
+            var _this = this;
+            this.$http = $http;
+            this.$q = $q;
+            this.$interval = $interval;
+            this.$timeout = $timeout;
+            this.refreshToken = localStorage['refreshToken'];
+            var fromUrl = this.getParameterByName('code');
+            if (!fromUrl && !this.refreshToken) {
+                this.getCode();
+            }
+            else {
+                this.code = fromUrl;
+            }
+            this.getMeetings();
+            $interval(function () { return _this.getMeetings(); }, 10 * 1000 * 60);
+        }
+        MeetingController.prototype.getMeetings = function () {
+            var _this = this;
+            if (this.token) {
+                var today = new Date();
+                today.setHours(0, 0, 0, 0);
+                var tonight = new Date(today.toString());
+                tonight.setDate(tonight.getDate() + 10);
+                this.$http.get("https://outlook.office.com/api/v2.0/me/calendarview?startDateTime=" + today.toISOString() + "&endDateTime=" + tonight.toISOString() + "&$select=IsAllDay,Start,End,Subject,Location&$orderby=Start/DateTime", {
+                    headers: {
+                        Authorization: 'Bearer ' + this.token
+                    }
+                }).success(function (data) {
+                    _this.meetings = data.value.map(function (meeting) {
+                        return {
+                            from: new Date(meeting.Start.DateTime),
+                            to: new Date(meeting.End.DateTime),
+                            description: meeting.Subject,
+                            location: meeting.Location.DisplayName,
+                            isAllDay: meeting.IsAllDay
+                        };
+                    });
+                    _this.isLoad = true;
+                }).error(function () {
+                    _this.token = "";
+                    _this.getMeetings();
+                });
+            }
+            else {
+                this.$http.post('http://microsoftoauthproxy.azurewebsites.net/api/token', {
+                    clientId: meetingsConfig.clientId,
+                    clientSecret: meetingsConfig.clientSecret,
+                    code: this.code,
+                    refreshToken: this.refreshToken,
+                    redirectUri: location.origin
+                }).success(function (result) {
+                    _this.token = result.access_token;
+                    _this.refreshToken = result.refresh_token;
+                    localStorage['refreshToken'] = _this.refreshToken;
+                    _this.$timeout(3599 * 1000).then(function () { return _this.token = ""; });
+                    _this.getMeetings();
+                }).error(function () {
+                    _this.getCode();
+                });
+            }
+        };
+        MeetingController.prototype.getCode = function () {
+            location.href = meetingsConfig.endpointOauth + "?response_type=code&client_id=" + meetingsConfig.clientId + "&redirect_uri=" + encodeURIComponent(location.origin) + "&scope=" + encodeURIComponent(meetingsConfig.scope) + " offline_access";
+        };
+        MeetingController.prototype.getParameterByName = function (name) {
+            var url = window.location.href;
+            var regex = new RegExp("[?&#]" + name + "(=([^&#]*)|&|#|$)"), results = regex.exec(url);
+            if (!results)
+                return null;
+            if (!results[2])
+                return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        };
+        return MeetingController;
+    }());
+    var MeetingComponent = (function () {
+        function MeetingComponent() {
+            this.bindings = {};
+            this.templateUrl = './template/meetings.html';
+            this.controller = ['$http', '$q', '$interval', '$timeout', MeetingController];
+        }
+        return MeetingComponent;
+    }());
+    angular.module('dashboard').component('meetings', new MeetingComponent());
+    angular.module('dashboard').filter('toHours', function () { return function (input) {
+        var toReadableTime = function (time) { return ("0" + time).slice(-2); };
+        input.getHours();
+        return toReadableTime(input.getHours()) + ":" + toReadableTime(input.getMinutes());
+    }; });
+})(Dashboard || (Dashboard = {}));
+var Dashboard;
+(function (Dashboard) {
     var configNextStop = {
         apiPattern: function (type, ligne, station, direction) {
             type = type.toLowerCase();
@@ -51,13 +152,16 @@ var Dashboard;
         return function (input) {
             var minutes = parseInt(input);
             if (minutes) {
-                return "Prochain dans d\u00E9part dans " + minutes + " minutes";
+                return "Prochain d\u00E9part dans " + minutes + " minutes";
             }
             else if (input === "A l'approche" || input === '0 mn') {
                 return "\u00C0 l'approche !";
             }
             else if (input === "A l'arret") {
                 return "\u00C0 l'arr\u00EAt !";
+            }
+            else if (input === 'PERTURBATIONS') {
+                return "Perturbations";
             }
             else {
                 return "Service termin\u00E9";
@@ -130,7 +234,7 @@ var Dashboard;
                     _this.icon = data.weather[0].icon.substr(0, 2);
                     _this.city = data.name;
                     _this.isLoad = true;
-                });
+                }).error(getMeteo);
             };
             getMeteo();
             $interval(getMeteo, 1000 * 60);
@@ -161,6 +265,19 @@ var Dashboard;
                 case '02': return 'icon-cloud';
                 case '04': return 'icon-cloud';
                 case '03': return 'icon-cloud';
+                default:
+                    return '';
+            }
+        };
+    });
+    angular.module("dashboard").filter("weatherToCloudBase", function () {
+        return function (input) {
+            switch (input) {
+                case '11': return 'basethundercloud';
+                case '09': return 'basecloud';
+                case '10': return 'basecloud';
+                case '09': return 'basecloud';
+                case '13': return 'basecloud';
                 default:
                     return '';
             }

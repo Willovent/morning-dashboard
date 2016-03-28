@@ -1,15 +1,8 @@
-next-stop{
-    padding:20px;
-    position: relative;
-   .station{
-       font-weight: bold;
-       font-size: 17px;    
-       text-transform: capitalize;
-   } 
-   .container{
-        align-items: stretch;
+meetings{
+        position: relative;
+             align-items: stretch;
         
-        .horaires{
+        .meetings{
             float:left;
             margin: 0;
             
@@ -17,6 +10,9 @@ next-stop{
                 padding: 10px 0;
                 border-bottom : 1px solid;
                 opacity: 0;
+                margin: 0 -5px;
+                padding: 10px 5px;
+                
                 &:last-child{
                     border : none;
                 }
@@ -25,13 +21,12 @@ next-stop{
             &.is-load{
                 div{
                     animation:appear 1s forwards;
-                    .defere-animation(5);
+                    .defere-animation(10);
                 }
             }
         }
     }
-}
-.defere-animation(@n, @i: 1) when (@i =< @n) {
+    .defere-animation(@n, @i: 1) when (@i =< @n) {
   &:nth-child(@{i}) {
     animation-delay: (@i * 0.2s);
   }
