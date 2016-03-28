@@ -1,3 +1,5 @@
+@import "../../styles/func.less";
+
 next-stop{
     padding:20px;
     position: relative;
@@ -5,6 +7,10 @@ next-stop{
        font-weight: bold;
        font-size: 17px;    
        text-transform: capitalize;
+       opacity: 0;
+       &.is-load{
+           animation:appear 1s forwards;
+       }
    } 
    .container{
         align-items: stretch;
@@ -30,10 +36,4 @@ next-stop{
             }
         }
     }
-}
-.defere-animation(@n, @i: 1) when (@i =< @n) {
-  &:nth-child(@{i}) {
-    animation-delay: (@i * 0.2s);
-  }
-  .defere-animation(@n, (@i + 1));
 }
