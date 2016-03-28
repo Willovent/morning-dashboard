@@ -7,12 +7,14 @@ var del = require('del');
 var autoprefixer = require('gulp-autoprefixer');
 var watch = require('gulp-watch');
 var ts = require('gulp-typescript');
+var uglify = require('gulp-uglify');
 
 gulp.task('build:scripts', ['clean:scripts'], function() {
     gulp.src(['./typings/main.d.ts','./app.ts', './component/**/*.ts'])
         .pipe(ts({
            out: 'app.js'
         }))
+        .pipe(uglify())
         .pipe(gulp.dest('./dist'));
 });
 
