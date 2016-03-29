@@ -10,7 +10,7 @@ module Dashboard {
                         console.log(this.news)
                         this.current = 1;
                     });
-
+            getNewNews();
             $interval(() => this.current = ++this.current % this.news.length, 10000);
             $interval(getNewNews, 1000 * 60 * 60);
         }
@@ -18,7 +18,6 @@ module Dashboard {
 
     class TimeComponent implements ng.IComponentOptions {
         templateUrl = 'template/news.html';
-        restrict = 'E';
         controller = ['$http', '$interval', NewsController];
     }
 

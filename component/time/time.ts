@@ -13,7 +13,6 @@ module Dashboard {
 
     class TimeComponent implements ng.IComponentOptions {
         templateUrl = 'template/time.html';
-        restrict = 'E';
         controller = ['$interval', TimeController];
     }
 

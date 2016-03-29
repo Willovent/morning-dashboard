@@ -35,14 +35,12 @@ module Dashboard {
     }
 
     class NextStopComponent implements ng.IComponentOptions {
-
         bindings: { [binding: string]: string } = {
             station: '@',
             direction: '@',
             ligne: '@',
             type: '@'
         };
-
         templateUrl = './template/nextStop.html';
         controller = ['$http', '$interval', NextStopController];
     }
