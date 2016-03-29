@@ -5,9 +5,7 @@ module Dashboard {
         scope: 'https://outlook.office.com/calendars.read',
         endpointOauth: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize',
     }
-
-    console.log()
-
+    
     export interface IMeeting {
         from: Date;
         to: Date;
@@ -105,7 +103,6 @@ module Dashboard {
 
     angular.module('dashboard').filter('toHours', () => (input: Date) => {
         let toReadableTime = (time: number) => ("0" + time).slice(-2);
-        input.getHours();
         return `${toReadableTime(input.getHours())}:${toReadableTime(input.getMinutes())}`;
     })
 }
