@@ -7,8 +7,7 @@ module Dashboard {
                 $http.jsonp<any>('http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=8&q=http%3A%2F%2Fnews.google.fr%2Fnews%3Fcf%3Dall%26hl%3Dfr%26pz%3D1%26ned%3Dfr%26output%3Drss&callback=JSON_CALLBACK')
                     .success((data) => {
                         this.news = data.responseData.feed.entries.map((entrie) => entrie.title);
-                        console.log(this.news)
-                        this.current = 1;
+                        this.current = 0;
                     });
             getNewNews();
             $interval(() => this.current = ++this.current % this.news.length, 10000);
