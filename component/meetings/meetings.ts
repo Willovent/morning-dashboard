@@ -55,6 +55,7 @@ module Dashboard {
                             isAllDay: meeting.IsAllDay
                         }
                     );
+                    this.meetings = this.meetings.filter((meeting) => !(meeting.isAllDay && meeting.from < today));
                     this.isLoad = true;
                 }).error(() => {
                     this.token = "";
@@ -74,7 +75,7 @@ module Dashboard {
                     this.$timeout(3599 * 1000).then(() => this.token = "");
                     this.getMeetings();
                 }).catch((error) => {
-                    if(error.statusCode == 400){
+                    if (error.statusCode == 400) {
                         this.getCode();
                     }
                 });
