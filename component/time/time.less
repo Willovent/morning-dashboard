@@ -1,9 +1,16 @@
-time{
+time.component{
         position: relative;
         padding:20px;
-    span{
-        font-size:70px;
-        float: right;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    span.date{
+        font-size:22px;
+        opacity: 0;
+        animation:appear 1s forwards;
+    }
+    span.time{
+        font-size:90px;
         opacity: 0;
         animation:appear 1s forwards;
     }
