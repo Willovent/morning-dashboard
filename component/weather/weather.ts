@@ -8,7 +8,8 @@ module Dashboard {
     class WeatherController {
         isLoad: boolean;
         city: string;
-        temp: number;
+        tempMax: number;
+        tempMin: number;
         icon: string;
 
         constructor($http: ng.IHttpService, $interval: ng.IIntervalService) {
@@ -20,7 +21,8 @@ module Dashboard {
                         units: "metric"
                     }
                 }).success((data) => {
-                    this.temp = data.main.temp;
+                    this.tempMax = data.main.temp_max;
+                    this.tempMin = data.main.temp_min;
                     this.icon = data.weather[0].icon.substr(0, 2);
                     this.city = data.name;
                     this.isLoad = true;

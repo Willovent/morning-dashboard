@@ -1,8 +1,9 @@
 @import 'font.less';
 @import 'weather-icon.less';
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300italic,300);
 
 body{
-    font-family: 'open_sans';
+    font-family: lato;
         overflow: hidden;
 }
 .clear{
@@ -18,7 +19,7 @@ body{
     top:0;
     left:0;
     overflow: hidden;
-        position:absolute;
+    position:absolute;
     
      &:before{
         @blur : 20px;
@@ -28,8 +29,8 @@ body{
         padding:@padding + 10;    
         position: absolute;
         filter:blur(@blur);
-        background: #492754;
-        background-image:url('./assets/bg.jpg'); 
+        background: #000;
+        // background-image:url('./assets/bg.jpg'); 
         background-size: auto 110%;  
         top:-@padding;
         left:-@padding;

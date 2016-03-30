@@ -1,5 +1,5 @@
-<div class="container" ng-style="{transform : 'translateY('+(100-(($ctrl.current/$ctrl.news.length)*100))+'%)'}">
-    <span ng-repeat="new in $ctrl.news" ng-class="{'current':$index==$ctrl.current}">
+<div class="container">
+    <span ng-repeat="new in $ctrl.news" ng-class="{'current':$index==$ctrl.current, 'leave' :$index==$ctrl.prev }">
         {{new}}
     </span>
 </div>
