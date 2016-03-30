@@ -14,8 +14,8 @@ module Dashboard {
             $interval(() => { 
                 this.prev = this.current;
                 this.current = ++this.current % this.news.length;
-            }, 2000);
-            $interval(getNewNews, 1000 * 60 * 60);
+            }, 10*1e3);
+            $interval(getNewNews, 1e3 * 60 * 60);
         }
     }
 
