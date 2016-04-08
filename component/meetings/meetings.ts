@@ -46,8 +46,9 @@ module Dashboard {
                 }).success((data) => {
                     this.meetings = data.value.map((meeting) =>
                         <IMeeting>{
-                            from: new Date(meeting.Start.DateTime),
-                            to: new Date(meeting.End.DateTime),
+                            //+'Z' for timezone issue on linux iceweasel
+                            from: new Date(meeting.Start.DateTime+'Z'),
+                            to: new Date(meeting.End.DateTime+'Z'),
                             description: meeting.Subject,
                             location: meeting.Location.DisplayName,
                             isAllDay: meeting.IsAllDay
