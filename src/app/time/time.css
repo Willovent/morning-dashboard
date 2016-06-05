@@ -1,0 +1,15 @@
+:host {
+        position: relative;
+        padding:20px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;   
+}
+
+span.date{
+        font-size:19px;
+}
+span.time{
+        font-size:90px;
+        font-weight: 300;
+}
