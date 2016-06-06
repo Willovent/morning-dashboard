@@ -1,0 +1,6 @@
+<div class="station" [class.is-load]="isLoad">{{type}} {{ligne}} - {{station}}</div>
+<div class="container">
+    <div class="horaires" [class.is-load]="isLoad">
+        <div *ngFor="let time of times;let i = index">{{time | schedulesToText}}</div>
+    </div>
+</div>

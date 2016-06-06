@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Time } from './time/time'
 import { Weather } from './weather/weather'
+import { Meetings } from './meetings/meetings'
+import { NextStop } from './nextstop/nextstop'
 
 
 
@@ -8,6 +10,6 @@ import { Weather } from './weather/weather'
   moduleId: module.id,
   selector: 'main',
   templateUrl: 'main.html',
-  directives: [Time,Weather]
+  directives: [Time, Weather, Meetings, NextStop]
 })
 export class Main { }
