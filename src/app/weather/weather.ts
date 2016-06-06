@@ -40,8 +40,8 @@ export class Weather implements OnInit {
       search: params
     }).subscribe((response) => {
       let data = response.json();
-      this.tempMax = data.main.temp_max;
-      this.tempMin = data.main.temp_min;
+      this.tempMax = parseFloat(parseFloat(data.main.temp_max).toFixed(1));
+      this.tempMin = parseFloat(parseFloat(data.main.temp_min).toFixed(1));
       this.icon = data.weather[0].icon.substr(0, 2);
       this.city = data.name;
       this.isLoad = true;
