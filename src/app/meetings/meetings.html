@@ -1,0 +1,11 @@
+<div class="container" [class.is-load]="isLoad">
+    <h2 [hidden]="!meetings.length">Meetings de la journée</h2>
+    <h2 [hidden]="meetings.length">Rien de prévu aujourd'hui, have fun !</h2>    
+    <div class="meetings" [class.is-load]="isLoad">
+        <div *ngFor="let meeting of meetings; let i = index">
+            <span *ngIf="!meeting.isAllDay">{{meeting.from | toHours}} - {{meeting.to | toHours}} : </span>{{meeting.description}}
+            <br>
+            <span><i>{{meeting.location}}</i></span>
+        </div>
+    </div>
+</div>
