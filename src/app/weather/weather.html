@@ -1,0 +1,9 @@
+<div class="container" [class.appear]="isLoad">
+    <div class="city">{{city}}</div>
+    <div class="line">
+        <div class="icon" [ngClass]="icon | weatherToClass">
+            <div [ngClass]="icon | weatherToCloudBase"></div>            
+        </div>
+        <div class="temp">{{tempMax}} | {{tempMin}}&deg;</div>
+    </div>
+</div>

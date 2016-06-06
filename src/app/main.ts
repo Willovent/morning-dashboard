@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Time } from './time/time'
+import { Weather } from './weather/weather'
 
 
 
@@ -7,6 +8,6 @@ import { Time } from './time/time'
   moduleId: module.id,
   selector: 'main',
   templateUrl: 'main.html',
-  directives: [Time]
+  directives: [Time,Weather]
 })
 export class Main { }
