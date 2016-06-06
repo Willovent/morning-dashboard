@@ -1,0 +1,81 @@
+@import 'font.less';
+@import 'weather-icon.less';
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300italic,300);
+
+body{
+    font-family: lato;
+        overflow: hidden;
+}
+.clear{
+    &:after{
+        content:'';
+        display:block;
+        clear:both;
+    }
+}
+.background-holder{
+    width:100vw;
+    height: 100vh;
+    top:0;
+    left:0;
+    overflow: hidden;
+    position:absolute;
+    
+     &:before{
+        @blur : 20px;
+        @padding : @blur + 10px;
+        content:'';
+        display: block;
+        padding:@padding + 10;    
+        position: absolute;
+        filter:blur(@blur);
+        background: #000;
+        // background-image:url('./assets/bg.jpg'); 
+        background-size: auto 110%;  
+        top:-@padding;
+        left:-@padding;
+        width:100vw;
+        height: 100vh;
+    }
+}
+.component{
+    margin:10px;
+    text-shadow: 0 0 2px fade(#000,50);    
+    color: #eee;
+    display: block;
+    border-radius:2px;
+    &:after{
+            content:'';
+            display: block;
+            clear:both;
+        }
+}
+
+.left-col{
+    float: left;    
+}
+
+.right-col{
+    float:right;
+}
+
+.center-col{
+    position:absolute;
+    left:50%;
+    transform:translate(-50%);
+}
+
+@keyframes appear{
+    0%{
+        opacity: 0;
+        transform-origin:top;
+        transform: rotateX(180deg);
+    }
+    30%{
+        transform: rotateX(-30deg);
+    }
+     100%{
+        transform: rotateX(0deg);
+        opacity: 1;        
+     }
+}

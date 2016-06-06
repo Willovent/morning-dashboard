@@ -1,0 +1,43 @@
+weather{
+    position:relative;
+    padding:20px;
+    height:120px;
+    width:270px;
+    
+    .container{
+        
+        &.appear{          
+          .city{
+              animation:appear 2s forwards;
+          }
+          .temp{
+              animation:appear 2s .5s forwards;
+          }
+          .icon{
+              animation:appear 2s .2s forwards;
+          }
+        }
+        
+        .line{
+            display: flex;   
+            align-items: center;      
+            justify-content: center;           
+        }
+        
+        .city{
+            opacity: 0;
+            font-size: 24px;
+            text-align: center;
+        }
+        
+        .temp{
+            opacity: 0;
+            font-size:45px;
+        }
+        
+        .icon{
+            opacity: 0;
+            float:left;
+        }
+    }
+}

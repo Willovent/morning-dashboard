@@ -1,0 +1,38 @@
+@import "../../styles/func.less";
+
+meetings {
+    position: relative;
+    align-items: stretch;
+    .container {
+        h2 {
+            opacity: 0;
+            font-weight: 300;
+        }
+        &.is-load {
+            h2 {
+                animation: appear 1s forwards;
+            }
+        }
+        .meetings {
+            float: left;
+            font-weight: 300;
+            margin: 0;
+            div {
+                padding: 10px 0;
+                border-bottom: 1px solid;
+                opacity: 0;
+                margin: 0 -5px;
+                padding: 10px 5px;
+                &:last-child {
+                    border: none;
+                }
+            }
+            &.is-load {
+                div {
+                    animation: appear 1s forwards;
+                    .defere-animation(10);
+                }
+            }
+        }
+    }
+}
