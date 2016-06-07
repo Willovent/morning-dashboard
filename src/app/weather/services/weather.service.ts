@@ -1,28 +1,30 @@
 import { Injectable } from '@angular/core'
 import { Http, URLSearchParams } from '@angular/http';
+import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
+import { environment } from '../../environment';
 
 @Injectable()
 export class WeatherService {
 
-    constructor(private http: Http) {
-    };
+  constructor(private http: Http) { };
 
-    getMeteo = () => {
+  getMeteo = (city: string): Observable<{ tempMax: number, tempMin: number, icon: string, city: string }> => {
     let params = new URLSearchParams();
-    params.set("q", this.city);
-    params.set("appid", configWeather.weatherApiKey);
+    params.set("q", city);
+    params.set("appid", environment.configWeather.weatherApiKey);
     params.set("units", "metric");
-    
-    this.http.get(configWeather.weatherApiUrl, {
+
+    return this.http.get(environment.configWeather.weatherApiUrl, {
       search: params
-    })
-    .subscribe((response) => {
+    }).map((response) => {
       let data = response.json();
-      this.tempMax = parseFloat(parseFloat(data.main.temp_max).toFixed(1));
-      this.tempMin = parseFloat(parseFloat(data.main.temp_min).toFixed(1));
-      this.icon = data.weather[0].icon.substr(0, 2);
-      this.city = data.name;
-      this.isLoad = true;
+      return {
+        tempMax: parseFloat(parseFloat(data.main.temp_max).toFixed(1)),
+        tempMin: parseFloat(parseFloat(data.main.temp_min).toFixed(1)),
+        icon: data.weather[0].icon.substr(0, 2),
+        city: data.name
+      }
     });
   }
 }
