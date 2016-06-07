@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { DayOfWeek } from './time.day-of-week.pipe'
-import { MonthOfYear } from './time.month-of-year.pipe'
-import { ReadableTime } from './time.readable-time.pipe'
+import { DayOfWeek } from './pipes/time.day-of-week'
+import { MonthOfYear } from './pipes/time.month-of-year'
+import { ReadableTime } from './pipes/time.readable-time'
 
 
 
