@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { WeatherToClass } from './pipes/weather.weather-to-class';
+import { WeatherToCloudBase } from './pipes/weather.weather-to-cloud-base';
 import { Http, URLSearchParams } from '@angular/http';
-import { WeatherToClass } from './weather.weather-to-class.pipe';
-import { WeatherToCloudBase } from './weather.weather-to-cloud-base.pipe';
+
 
 let configWeather = {
   weatherApiKey: "f0d716b60dc56bf332a979358f824bec",
@@ -29,8 +30,7 @@ export class Weather implements OnInit {
     this.getMeteo();
     window.setInterval(this.getMeteo, 1000 * 60);
   }
-
-  getMeteo = () => {
+   getMeteo = () => {
     let params = new URLSearchParams();
     params.set("q", this.city);
     params.set("appid", configWeather.weatherApiKey);
