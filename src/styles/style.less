@@ -18,20 +18,22 @@ body{
     left:0;
     overflow: hidden;
     position:absolute;
-    
-     &:before{
-        @blur : 20px;
+
+    &.nice-background:before{        
+        @blur : 15px;
         @padding : @blur + 10px;
-        content:'';
-        display: block;
-        padding:@padding + 10;    
-        position: absolute;
-        filter:blur(@blur);
-        background: #000;
         background-image:url('/assets/bg.jpg'); 
-        background-size: auto 110%;  
+        padding:@padding + 10;    
+        -webkit-filter:blur(@blur);        
         top:-@padding;
         left:-@padding;
+    }
+     &:before{
+        content:'';
+        display: block;
+        position: absolute;
+        background: #000;
+        background-size: auto 110%;  
         width:100vw;
         height: 100vh;
     }
