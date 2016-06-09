@@ -19,7 +19,7 @@ export class Meetings implements OnInit{
 
   ngOnInit(){
     this.getMeetings();
-    setInterval(this.getMeetings, 1000* 60 * 60 );
+    setInterval(() => this.getMeetings(), 1000 * 60 * 60);
   }
 
   getMeetings(){

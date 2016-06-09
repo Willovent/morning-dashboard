@@ -81,7 +81,7 @@ export class MeetingsService {
                         setTimeout(() => this.token = "", 3599 * 1000);
                         this.getMeetings().subscribe(meetings => observer.next(meetings));                        
                     }, (error) => {
-                        if (error.statusCode == 400) {
+                        if (error.status == 400) {
                             this.getCode();
                         }
                     });
