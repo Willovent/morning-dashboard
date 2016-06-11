@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 export class NextStopService {
   constructor(private http: Http) { }
 
-  apiPattern = (type: string, ligne: string, station: string, direction: string) => {
+  private apiPattern = (type: string, ligne: string, station: string, direction: string) => {
     type = type.toLowerCase();
     station = station.toLowerCase().replace(/\s/g, '+');
     direction = direction.toLowerCase().replace(/\s/g, '+');

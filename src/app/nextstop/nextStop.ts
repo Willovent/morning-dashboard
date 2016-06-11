@@ -17,23 +17,21 @@ export class NextStop implements OnInit {
   @Input() station: string;
   @Input() direction: string;
   times: string[];
-  constructor(private nextStopService :NextStopService) { }
+  constructor(private nextStopService: NextStopService) { }
 
   ngOnInit() {
-    this.nextStopService.updateHoraire(this.type, this.ligne, this.station,this.direction)
-    .subscribe(info => {
-      this.type = info.type;
-      this.ligne = info.ligne;
-      this.station = info.station;
-      this.times = info.times;  
-      this.isLoad = true;  
-    });
-    setInterval(() => this.nextStopService.updateHoraire(this.type, this.ligne, this.station,this.direction)
-    .subscribe(info => {
-      this.type = info.type;
-      this.ligne = info.ligne;
-      this.station = info.station;
-      this.times = info.times;    
-    }), 10 * 1000)
-  }  
+    this.getNextStop();
+    setInterval(() => this.getNextStop(), 10 * 1000);
+  }
+
+  private getNextStop = () => {
+    this.nextStopService.updateHoraire(this.type, this.ligne, this.station, this.direction)
+      .subscribe(info => {
+        this.type = info.type;
+        this.ligne = info.ligne;
+        this.station = info.station;
+        this.times = info.times;
+        this.isLoad = true;
+      });
+  }
 }

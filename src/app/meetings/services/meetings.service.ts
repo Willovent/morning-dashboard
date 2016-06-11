@@ -21,11 +21,11 @@ export class MeetingsService {
         }
     }
 
-    getCode = () =>
+    private getCode = () =>
         location.href = `${environment.meetingsConfig.endpointOauth}?response_type=code&client_id=${environment.meetingsConfig.clientId}&redirect_uri=${encodeURIComponent(location.origin)}&scope=${encodeURIComponent(environment.meetingsConfig.scope)}`;
 
 
-    getParameterByName(name): string {
+    private getParameterByName(name): string {
         let url = window.location.href;
         var regex = new RegExp("[?&#]" + name + "(=([^&#]*)|&|#|$)"),
             results = regex.exec(url);
