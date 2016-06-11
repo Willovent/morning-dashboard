@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../../environment'
 
 @Injectable()
 export class NextStopService {
@@ -11,7 +12,7 @@ export class NextStopService {
     type = type.toLowerCase();
     station = station.toLowerCase().replace(/\s/g, '+');
     direction = direction.toLowerCase().replace(/\s/g, '+');
-    return `http://api-ratp.pierre-grimaud.fr/v2/${type}/${ligne}/stations/${station}?destination=${direction}`;
+    return `${environment.ratpBaseUrl}${type}/${ligne}/stations/${station}?destination=${direction}`;
   }
 
   updateHoraire = (type: string, ligne: string, station: string, direction: string): Observable<{ type: any, ligne: any, station: any, times: any[] }> => {

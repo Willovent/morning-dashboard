@@ -10,5 +10,6 @@ export const environment = {
   configWeather: {
     weatherApiKey: "f0d716b60dc56bf332a979358f824bec",
     weatherApiUrl: "http://api.openweathermap.org/data/2.5/weather"
-  }
+  },
+  ratpBaseUrl: 'http://api-ratp.pierre-grimaud.fr/v2/'
 };
