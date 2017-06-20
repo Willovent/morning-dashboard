@@ -2,31 +2,31 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
-import { environment } from '../../environment'
+import { environment } from '../../../environments/environment'
 
 @Injectable()
 export class NextStopService {
   constructor(private http: Http) { }
 
   private apiPattern = (type: string, ligne: string, station: string, direction: string) => {
-    type = type.toLowerCase();
-    station = station.toLowerCase().replace(/\s/g, '+');
-    direction = direction.toLowerCase().replace(/\s/g, '+');
-    return `${environment.ratpBaseUrl}${type}/${ligne}/stations/${station}?destination=${direction}`;
+    const formattedType = type.toLowerCase();
+    const formattedStation = station.toLowerCase().replace(/\s/g, '+');
+    return `${environment.ratpBaseUrl}schedules/${formattedType}/${ligne}/${formattedStation}/${direction}`;
   }
 
-  updateHoraire = (type: string, ligne: string, station: string, direction: string): Observable<{ type: any, ligne: any, station: any, times: any[] }> => {
+  updateHoraire = (type: string, ligne: string, station: string, direction: string)
+    : Observable<{ type: any, ligne: any, station: any, times: any[] }> => {
     return this.http.get(this.apiPattern(type, ligne, station, direction))
       .map(res => {
-        let data = res.json();
-        var times = [];
-        for (let schedule of data.response.schedules) {
+        const data = res.json();
+        const times = [];
+        for (const schedule of data.result.schedules) {
           times.push(schedule.message);
         }
         return {
-          type: data.response.informations.type,
-          station: data.response.informations.station.name,
-          ligne: data.response.informations.line,
+          type: type,
+          station: station,
+          ligne: ligne,
           times
         }
       });

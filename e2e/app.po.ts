@@ -1,9 +1,11 @@
-export class DashboardV2Page {
+import { browser, by, element } from 'protractor';
+
+export class MorningDashboardV2Page {
   navigateTo() {
     return browser.get('/');
   }
 
   getParagraphText() {
-    return element(by.css('dashboard-v2-app h1')).getText();
+    return element(by.css('app-root h1')).getText();
   }
 }

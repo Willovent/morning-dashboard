@@ -19,12 +19,12 @@ body{
     overflow: hidden;
     position:absolute;
 
-    &.nice-background:before{        
+    &.nice-background:before{
         @blur : 15px;
         @padding : @blur + 10px;
-        background-image:url('/assets/bg.jpg'); 
-        padding:@padding + 10;    
-        -webkit-filter:blur(@blur);        
+        background-image:url('/assets/bg.jpg');
+        padding:@padding + 10;
+        -webkit-filter:blur(@blur);
         top:-@padding;
         left:-@padding;
     }
@@ -33,14 +33,14 @@ body{
         display: block;
         position: absolute;
         background: #000;
-        background-size: auto 110%;  
+        background-size: auto 110%;
         width:100vw;
         height: 100vh;
     }
 }
 .component{
     margin:10px;
-    text-shadow: 0 0 2px fade(#000,50);    
+    text-shadow: 0 0 2px fade(#000,50);
     color: #eee;
     display: block;
     border-radius:2px;
@@ -52,7 +52,7 @@ body{
 }
 
 .left-col{
-    float: left;    
+    float: left;
 }
 
 .right-col{
@@ -76,7 +76,7 @@ body{
     }
      100%{
         transform: rotateX(0deg);
-        opacity: 1;        
+        opacity: 1;
      }
 }
 

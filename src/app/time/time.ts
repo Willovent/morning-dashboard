@@ -6,19 +6,17 @@ import { ReadableTime } from './pipes/time.readable-time'
 
 
 @Component({
-  moduleId: module.id,
   selector: 'time',
   templateUrl: 'time.html',
-  styleUrls: ['time.css'],
-  pipes: [DayOfWeek, MonthOfYear,ReadableTime]  
+  styleUrls: ['time.less']
 })
-export class Time {
-    now: Date;
-    constructor(){
-      var updateTime = () => {
-         this.now = new Date();
-      };
-      updateTime();
-      window.setInterval(updateTime, 10000);
-    }     
+export class TimeComponent {
+  now: Date;
+  constructor() {
+    const updateTime = () => {
+      this.now = new Date();
+    };
+    updateTime();
+    window.setInterval(updateTime, 10000);
+  }
 }

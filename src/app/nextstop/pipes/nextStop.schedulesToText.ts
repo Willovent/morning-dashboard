@@ -1,10 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 
-@Pipe({ name: "schedulesToText" })
+@Pipe({ name: 'schedulesToText' })
 export class SchedulesToText implements PipeTransform {
   transform(input: string): string {
-    var minutes = parseInt(input);
+    const minutes = parseInt(input);
     if (minutes) {
       return `Prochain départ dans ${minutes} minutes`;
     } else if (input === `A l'approche` || input === '0 mn') {

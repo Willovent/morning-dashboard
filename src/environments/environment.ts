@@ -8,8 +8,8 @@ export const environment = {
     calendarView: 'https://outlook.office.com/api/v2.0/me/calendarview'
   },
   configWeather: {
-    weatherApiKey: "f0d716b60dc56bf332a979358f824bec",
-    weatherApiUrl: "http://api.openweathermap.org/data/2.5/weather"
+    weatherApiKey: 'f0d716b60dc56bf332a979358f824bec',
+    weatherApiUrl: 'http://api.openweathermap.org/data/2.5/weather'
   },
-  ratpBaseUrl: 'http://api-ratp.pierre-grimaud.fr/v2/'
+  ratpBaseUrl: 'https://api-ratp.pierre-grimaud.fr/v3/'
 };

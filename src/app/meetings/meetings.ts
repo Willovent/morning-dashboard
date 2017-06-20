@@ -4,29 +4,27 @@ import { IMeeting } from './meeting';
 import { MeetingsService } from './services/meetings.service'
 
 @Component({
-  moduleId: module.id,
   selector: 'meetings',
   templateUrl: 'meetings.html',
-  styleUrls: ['meetings.css'],
-  pipes: [ToHours],
+  styleUrls: ['meetings.less'],
   providers: [MeetingsService]
 })
-export class Meetings implements OnInit{
+export class MeetingsComponent implements OnInit {
   meetings: IMeeting[] = [];
-  isLoad: boolean = false;
+  isLoad = false;
 
   constructor(private meetingsService: MeetingsService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getMeetings();
     setInterval(() => this.getMeetings(), 1000 * 60 * 60);
   }
 
-  getMeetings(){
+  getMeetings() {
     this.meetingsService.getMeetings()
-    .subscribe(meetings => {
-      this.meetings = meetings;
-      this.isLoad = true;
-    });
+      .subscribe(meetings => {
+        this.meetings = meetings;
+        this.isLoad = true;
+      });
   }
 }

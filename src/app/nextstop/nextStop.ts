@@ -6,12 +6,11 @@ import { NextStopService } from './services/nextStop.service'
   moduleId: module.id,
   selector: 'next-stop',
   templateUrl: 'nextStop.html',
-  styleUrls: ['nextStop.css'],
-  pipes: [SchedulesToText],
+  styleUrls: ['nextStop.less'],
   providers: [NextStopService]
 })
-export class NextStop implements OnInit {
-  isLoad: boolean = false;
+export class NextStopComponent implements OnInit {
+  isLoad = false;
   @Input() type: string;
   @Input() ligne: string;
   @Input() station: string;

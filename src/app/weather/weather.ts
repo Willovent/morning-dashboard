@@ -6,14 +6,12 @@ import { WeatherService } from './services/weather.service'
 
 
 @Component({
-  moduleId: module.id,
   selector: 'weather',
   templateUrl: 'weather.html',
-  styleUrls: ['weather.css'],
-  pipes: [WeatherToClass, WeatherToCloudBase],
+  styleUrls: ['weather.less'],
   providers : [WeatherService]
 })
-export class Weather implements OnInit {
+export class WeatherComponent implements OnInit {
   isLoad: boolean;
   @Input() city: string;
   tempMax: number;
@@ -27,7 +25,7 @@ export class Weather implements OnInit {
     window.setInterval(this.getMeteo, 1000 * 60);
   }
 
-   getMeteo = () => {    
+   getMeteo = () => {
     this.weatherService.getMeteo(this.city).subscribe((data) => {
       this.tempMax = data.tempMax;
       this.tempMin = data.tempMin;
