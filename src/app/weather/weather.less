@@ -1,12 +1,13 @@
+@import './weather-icon.less';
 :host{
     position:relative;
     padding:20px;
     height:120px;
     width:350px;
-    
+
     .container{
-        
-        &.appear{          
+
+        &.appear{
           .city{
               animation:appear 2s forwards;
           }
@@ -17,24 +18,24 @@
               animation:appear 2s .2s forwards;
           }
         }
-        
+
         .line{
-            display: flex;   
-            align-items: center;      
-            justify-content: center;           
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
+
         .city{
             opacity: 0;
             font-size: 24px;
             text-align: center;
         }
-        
+
         .temp{
             opacity: 0;
             font-size:45px;
         }
-        
+
         .icon{
             opacity: 0;
             float:left;
