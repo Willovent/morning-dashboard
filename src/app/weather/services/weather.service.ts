@@ -15,7 +15,7 @@ export class WeatherService {
     params.set('appid', environment.configWeather.weatherApiKey);
     params.set('units', 'metric');
 
-    return this.http.get(environment.configWeather.weatherApiUrl, {
+    return this.http.get(`${environment.configWeather.weatherApiUrl}/weather`, {
       search: params
     }).map((response) => {
       const data = response.json();
@@ -27,4 +27,47 @@ export class WeatherService {
       }
     });
   }
+
+  getForcast(city: string): Observable<ForeCast> {
+    const params = new URLSearchParams();
+    params.set('q', city);
+    params.set('appid', environment.configWeather.weatherApiKey);
+    params.set('units', 'metric');
+    params.set('cnt', '8');
+    return this.http.get(`${environment.configWeather.weatherApiUrl}/forecast`, {
+      search: params
+    }).map((response) => {
+      const data = response.json();
+      const forecast = new ForeCast();
+      forecast.city = data.city.name;
+      console.log(data);
+
+      forecast.weathers = data.list.map(weather => {
+        return {
+          temp: weather.main.temp,
+          icon: weather.weather[0].icon.substr(0, 2),
+          wind: weather.wind.speed,
+          rain: weather.rain ? weather.rain['3h'] : 0,
+          snow: weather.snow ? weather.snow['3h'] : 0,
+          date: new Date(weather.dt_txt)
+        }
+      })
+      return forecast
+    });
+  }
+}
+
+
+export class Weather {
+  temp: number;
+  icon: string;
+  wind?: number;
+  rain?: number;
+  snow?: number;
+  date: Date;
+}
+
+export class ForeCast {
+  weathers: Weather[];
+  city: string;
 }

@@ -1,9 +1,11 @@
 <div class="container" [class.appear]="isLoad">
-    <div class="city">{{city}}</div>
-    <div class="line">
-        <div class="icon" [ngClass]="icon | weatherToClass">
-            <div [ngClass]="icon | weatherToCloudBase"></div>            
-        </div>
-        <div class="temp">{{tempMax}} | {{tempMin}}&deg;</div>
+  <div class="city">{{city}}</div>
+  <chart [type]="'line'" [data]="chartData | async" [options]="chartOptions"></chart>
+  <div class="forecast-icon-container">
+    <div class="icon" *ngFor="let weather of weathers | async" [ngClass]="weather.icon | weatherToClass">
+      <div [ngClass]="weather.icon | weatherToCloudBase">
+        <span class="temperature">{{weather.temp}} °</span>
+      </div>
     </div>
+  </div>
 </div>

@@ -19,6 +19,7 @@ import { WeatherToCloudBase } from './weather/pipes/weather.weather-to-cloud-bas
 import { NextStopService } from './nextstop/services/nextStop.service';
 import { MeetingsService } from './meetings/services/meetings.service';
 import { WeatherService } from './weather/services/weather.service';
+import { ChartModule } from 'angular2-chartjs';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { WeatherService } from './weather/services/weather.service';
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
