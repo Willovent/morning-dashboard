@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core'
-import { Http, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class WeatherService {
 
-  constructor(private http: Http) { };
+  constructor(private http: HttpClient) { };
 
   getMeteo = (city: string): Observable<{ tempMax: number, tempMin: number, icon: string, city: string }> => {
-    const params = new URLSearchParams();
-    params.set('q', city);
-    params.set('appid', environment.configWeather.weatherApiKey);
-    params.set('units', 'metric');
+    const params = new HttpParams()
+      .append('q', city)
+      .append('appid', environment.configWeather.weatherApiKey)
+      .append('units', 'metric');
 
-    return this.http.get(`${environment.configWeather.weatherApiUrl}/weather`, {
-      search: params
+    return this.http.get<any>(`${environment.configWeather.weatherApiUrl}weather`, {
+      params
     }).map((response) => {
-      const data = response.json();
+      const data = response;
       return {
         tempMax: parseFloat(parseFloat(data.main.temp_max).toFixed(1)),
         tempMin: parseFloat(parseFloat(data.main.temp_min).toFixed(1)),
@@ -29,19 +29,17 @@ export class WeatherService {
   }
 
   getForcast(city: string): Observable<ForeCast> {
-    const params = new URLSearchParams();
-    params.set('q', city);
-    params.set('appid', environment.configWeather.weatherApiKey);
-    params.set('units', 'metric');
-    params.set('cnt', '8');
-    return this.http.get(`${environment.configWeather.weatherApiUrl}/forecast`, {
-      search: params
+    const params = new HttpParams()
+      .append('q', city)
+      .append('appid', environment.configWeather.weatherApiKey)
+      .append('units', 'metric')
+      .append('cnt', '8');
+    return this.http.get<any>(`${environment.configWeather.weatherApiUrl}forecast`, {
+      params
     }).map((response) => {
-      const data = response.json();
+      const data = response;
       const forecast = new ForeCast();
       forecast.city = data.city.name;
-      console.log(data);
-
       forecast.weathers = data.list.map(weather => {
         return {
           temp: weather.main.temp,

@@ -78,7 +78,7 @@ export class WeatherComponent implements OnInit {
   }
 
   private shouldUpdate(options1: ChartOptions, options2: ChartOptions): boolean {
-    return !(options1 && options2 && !options1.labels.some(x => options2.labels.indexOf(x) === -1));
+    return !(options1 && options2 && options1.labels[0] === options2.labels[0]);
   }
 }
 

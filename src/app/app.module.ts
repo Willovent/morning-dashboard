@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -20,6 +20,7 @@ import { NextStopService } from './nextstop/services/nextStop.service';
 import { MeetingsService } from './meetings/services/meetings.service';
 import { WeatherService } from './weather/services/weather.service';
 import { ChartModule } from 'angular2-chartjs';
+import { DynamicComponentDirective } from './dynamic-component.directive';
 
 @NgModule({
   declarations: [
@@ -34,12 +35,19 @@ import { ChartModule } from 'angular2-chartjs';
     MonthOfYear,
     ReadableTime,
     WeatherToClass,
-    WeatherToCloudBase
+    WeatherToCloudBase,
+    DynamicComponentDirective
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     ChartModule
+  ],
+  entryComponents: [
+    MeetingsComponent,
+    NextStopComponent,
+    TimeComponent,
+    WeatherComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

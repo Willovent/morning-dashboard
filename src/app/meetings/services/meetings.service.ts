@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment'
 import { IMeeting } from '../meeting';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class MeetingsService {
@@ -11,7 +11,7 @@ export class MeetingsService {
   refreshToken: string;
   code: string;
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     this.refreshToken = localStorage['refreshToken'];
     const fromUrl = this.getParameterByName('code');
     if (!fromUrl && !this.refreshToken) {
@@ -45,13 +45,13 @@ export class MeetingsService {
       today.setHours(0, 0, 0, 0);
       const tonight = new Date(today.toString());
       tonight.setDate(tonight.getDate() + 1);
-      const headers = new Headers();
+      const headers = new HttpHeaders();
       headers.set('Authorization', `Bearer ${this.token}`);
       // tslint:disable-next-line:max-line-length
-      return this.http.get(`${environment.meetingsConfig.calendarView}?startDateTime=${today.toISOString()}&endDateTime=${tonight.toISOString()}&$select=IsAllDay,Start,End,Subject,Location&$orderby=Start/DateTime`, {
+      return this.http.get<any>(`${environment.meetingsConfig.calendarView}?startDateTime=${today.toISOString()}&endDateTime=${tonight.toISOString()}&$select=IsAllDay,Start,End,Subject,Location&$orderby=Start/DateTime`, {
         headers
       }).map((response) => {
-        const data = response.json();
+        const data = response;
         let meetings = data.value.map((meeting) =>
           <IMeeting>{
             // +'Z' for timezone issue on linux iceweasel
@@ -69,10 +69,10 @@ export class MeetingsService {
         this.getMeetings();
       });
     } else {
-      const headers = new Headers();
+      const headers = new HttpHeaders();
       headers.set('Content-Type', 'application/json');
       return Observable.create(observer => {
-        this.http.post('http://microsoftoauthproxy.azurewebsites.net/api/token', JSON.stringify({
+        this.http.post<any>('http://microsoftoauthproxy.azurewebsites.net/api/token', JSON.stringify({
           clientId: environment.meetingsConfig.clientId,
           clientSecret: environment.meetingsConfig.clientSecret,
           code: this.code,
@@ -80,7 +80,7 @@ export class MeetingsService {
           redirectUri: location.origin
         }), { headers })
           .subscribe((res) => {
-            const result = res.json();
+            const result = res;
             this.token = result.access_token;
             this.refreshToken = result.refresh_token;
             localStorage['refreshToken'] = this.refreshToken;

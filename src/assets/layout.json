@@ -1,0 +1,34 @@
+{
+  "leftTemplate": [
+    {
+      "type": "WeatherComponent",
+      "props": {
+        "city": "paris"
+      }
+    }
+  ],
+  "rightTemplate": [
+    {
+      "type": "TimeComponent",
+      "props": null
+    },
+    {
+      "type": "NextStopComponent",
+      "props": {
+        "station": "Le Bois Cadet",
+        "direction": "A",
+        "type": "Bus",
+        "ligne": "124"
+      }
+    },
+    {
+      "type": "NextStopComponent",
+      "props": {
+        "station": "Le Bois Cadet",
+        "direction": "R",
+        "type": "Bus",
+        "ligne": "116"
+      }
+    }
+  ]
+}

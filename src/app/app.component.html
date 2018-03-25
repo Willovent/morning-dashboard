@@ -1,10 +1,11 @@
 <div class="background-holder" [class.nice-background]="!production"></div>
 <div class="left-col">
-    <weather class="component" city="paris"></weather>
-    <meetings class="component"></meetings>
+    <div *ngFor="let comp of leftTemplate" class="component">
+      <ng-template [appDynamicComponent]="comp"></ng-template>
+    </div>
 </div>
 <div class="right-col">
-    <time class="component"></time>
-    <next-stop class="component" station="Le Bois Cadet" direction="A" type="Bus" ligne="124"></next-stop>
-    <next-stop class="component" station="Le Bois Cadet" direction="R" type="Bus" ligne="116"></next-stop>
+    <div *ngFor="let comp of rightTemplate" class="component">
+        <ng-template [appDynamicComponent]="comp"></ng-template>
+      </div>
 </div>
