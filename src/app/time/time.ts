@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { DayOfWeek } from './pipes/time.day-of-week'
-import { MonthOfYear } from './pipes/time.month-of-year'
-import { ReadableTime } from './pipes/time.readable-time'
+import { dynamic } from 'app/dynamic-component.decorator';
 
 
+@dynamic('time')
 
 @Component({
   selector: 'time',

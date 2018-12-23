@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment'
 import { HttpClient } from '@angular/common/http';
 
@@ -17,7 +17,7 @@ export class NextStopService {
   updateHoraire = (type: string, ligne: string, station: string, direction: string)
     : Observable<{ type: any, ligne: any, station: any, times: any[] }> => {
     return this.http.get<any>(this.apiPattern(type, ligne, station, direction))
-      .map(res => {
+      .pipe(map(res => {
         const data = res;
         const times = [];
         for (const schedule of data.result.schedules) {
@@ -29,7 +29,7 @@ export class NextStopService {
           ligne: ligne,
           times
         }
-      });
+      }));
   };
 
 }

@@ -5,16 +5,12 @@ import {
   ComponentFactoryResolver,
   AfterViewInit,
   QueryList,
-  ViewContainerRef
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { WeatherComponent } from './weather/weather';
 import { DynamicComponentDirective } from './dynamic-component.directive';
-import { TimeComponent } from './time/time';
-import { NextStopComponent } from './nextstop/nextStop';
 import { IDynamicComponent } from './dynamic-component';
-import { MeetingsComponent } from './meetings/meetings';
+import { dynamicComponents } from './dynamic-component.decorator';
 
 @Component({
   selector: 'app-root',
@@ -36,9 +32,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.httpClient.get<{ rightTemplate: IDynamicComponent[], leftTemplate: IDynamicComponent[] }>('/assets/layout.json').subscribe(layout => {
-      this.leftTemplate = layout.leftTemplate.map(this.stringToComp);
-      this.rightTemplate = layout.rightTemplate.map(this.stringToComp);
+    this.httpClient.get<{ right: IDynamicComponent[], left: IDynamicComponent[] }>('/assets/layout.json').subscribe(layout => {
+      this.leftTemplate = layout.left.map(this.stringToComp);
+      this.rightTemplate = layout.right.map(this.stringToComp);
       setTimeout(() => this.loadComponents());
     });
 
@@ -53,10 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   stringToComp(comp: IDynamicComponent): IDynamicComponent {
-    switch (comp.type) {
-      case 'TimeComponent': return { ...comp, type: TimeComponent };
-      case 'NextStopComponent': return { ...comp, type: NextStopComponent };
-      case 'WeatherComponent': return { ...comp, type: WeatherComponent };
-    }
+    comp.type = dynamicComponents[comp.type];
+    return comp;
   }
 }

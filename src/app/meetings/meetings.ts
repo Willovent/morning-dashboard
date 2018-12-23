@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ToHours } from './pipes/meetings.toHours';
 import { IMeeting } from './meeting';
 import { MeetingsService } from './services/meetings.service'
+import { dynamic } from 'app/dynamic-component.decorator';
 
+@dynamic('meetings')
 @Component({
   selector: 'meetings',
   templateUrl: 'meetings.html',

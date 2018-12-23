@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core'
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class WeatherService {
@@ -17,7 +18,7 @@ export class WeatherService {
 
     return this.http.get<any>(`${environment.configWeather.weatherApiUrl}weather`, {
       params
-    }).map((response) => {
+    }).pipe(map((response) => {
       const data = response;
       return {
         tempMax: parseFloat(parseFloat(data.main.temp_max).toFixed(1)),
@@ -25,7 +26,7 @@ export class WeatherService {
         icon: data.weather[0].icon.substr(0, 2),
         city: data.name
       }
-    });
+    }));
   }
 
   getForcast(city: string): Observable<ForeCast> {
@@ -36,7 +37,7 @@ export class WeatherService {
       .append('cnt', '8');
     return this.http.get<any>(`${environment.configWeather.weatherApiUrl}forecast`, {
       params
-    }).map((response) => {
+    }).pipe(map((response) => {
       const data = response;
       const forecast = new ForeCast();
       forecast.city = data.city.name;
@@ -51,7 +52,7 @@ export class WeatherService {
         }
       })
       return forecast
-    });
+    }));
   }
 }
 

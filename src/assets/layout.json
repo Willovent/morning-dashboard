@@ -1,19 +1,25 @@
 {
-  "leftTemplate": [
+  "left": [
     {
-      "type": "WeatherComponent",
+      "type": "weather",
       "props": {
         "city": "paris"
       }
+    },
+    {
+      "type": "twitter-feed",
+      "props": {
+        "user": "RER_A"
+      }
     }
   ],
-  "rightTemplate": [
+  "right": [
     {
-      "type": "TimeComponent",
+      "type": "time",
       "props": null
     },
     {
-      "type": "NextStopComponent",
+      "type": "next-stop",
       "props": {
         "station": "Le Bois Cadet",
         "direction": "A",
@@ -22,7 +28,7 @@
       }
     },
     {
-      "type": "NextStopComponent",
+      "type": "next-stop",
       "props": {
         "station": "Le Bois Cadet",
         "direction": "R",

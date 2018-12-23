@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SchedulesToText } from './pipes/nextStop.schedulesToText';
 import { NextStopService } from './services/nextStop.service'
-
+import { dynamic } from 'app/dynamic-component.decorator';
+@dynamic('next-stop')
 @Component({
   moduleId: module.id,
   selector: 'next-stop',

@@ -16,11 +16,9 @@ import { ReadableTime } from './time/pipes/time.readable-time';
 import { WeatherToClass } from './weather/pipes/weather.weather-to-class';
 import { WeatherToCloudBase } from './weather/pipes/weather.weather-to-cloud-base';
 
-import { NextStopService } from './nextstop/services/nextStop.service';
-import { MeetingsService } from './meetings/services/meetings.service';
-import { WeatherService } from './weather/services/weather.service';
 import { ChartModule } from 'angular2-chartjs';
 import { DynamicComponentDirective } from './dynamic-component.directive';
+import { TwitterFeedComponent } from './twitter-feed/twitter-feed.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +34,8 @@ import { DynamicComponentDirective } from './dynamic-component.directive';
     ReadableTime,
     WeatherToClass,
     WeatherToCloudBase,
-    DynamicComponentDirective
+    DynamicComponentDirective,
+    TwitterFeedComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +46,8 @@ import { DynamicComponentDirective } from './dynamic-component.directive';
     MeetingsComponent,
     NextStopComponent,
     TimeComponent,
-    WeatherComponent
+    WeatherComponent,
+    TwitterFeedComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,11 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { WeatherToClass } from './pipes/weather.weather-to-class';
-import { WeatherToCloudBase } from './pipes/weather.weather-to-cloud-base';
-import { Http, URLSearchParams } from '@angular/http';
 import { WeatherService, Weather } from './services/weather.service'
-import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { BehaviorSubject } from 'rxjs'
 import { ReadableTime } from '../time/pipes/time.readable-time'
 import 'chartjs';
+import { dynamic } from 'app/dynamic-component.decorator';
+@dynamic('weather')
 @Component({
   selector: 'weather',
   templateUrl: 'weather.html',

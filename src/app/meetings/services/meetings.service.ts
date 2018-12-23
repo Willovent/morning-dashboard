@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment'
 import { IMeeting } from '../meeting';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -50,7 +50,7 @@ export class MeetingsService {
       // tslint:disable-next-line:max-line-length
       return this.http.get<any>(`${environment.meetingsConfig.calendarView}?startDateTime=${today.toISOString()}&endDateTime=${tonight.toISOString()}&$select=IsAllDay,Start,End,Subject,Location&$orderby=Start/DateTime`, {
         headers
-      }).map((response) => {
+      }).pipe(map((response) => {
         const data = response;
         let meetings = data.value.map((meeting) =>
           <IMeeting>{
@@ -67,7 +67,7 @@ export class MeetingsService {
       }, (error) => {
         this.token = '';
         this.getMeetings();
-      });
+      }));
     } else {
       const headers = new HttpHeaders();
       headers.set('Content-Type', 'application/json');
@@ -84,7 +84,7 @@ export class MeetingsService {
             this.token = result.access_token;
             this.refreshToken = result.refresh_token;
             localStorage['refreshToken'] = this.refreshToken;
-            setTimeout(() => this.token = '', 3599 * 1000);
+            setTimeout(() => this.token = '', 3599e3);
             this.getMeetings().subscribe(meetings => observer.next(meetings));
           }, (error) => {
             if (error.status === 400) {
