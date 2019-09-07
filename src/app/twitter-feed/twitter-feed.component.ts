@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 import { dynamic } from 'app/dynamic-component.decorator';
 
 @dynamic('twitter-feed')
